@@ -1,0 +1,401 @@
+a64f784bb14a56bfdfad2dc397dd67e4564e3a29 (Fri Oct 19 16:55:26 2018 +0200):
+Global BO state is always correctly initialized so driver no longer needs
+to initialize it. Remove drm_global_reference and ttm_bo_global_ref as
+well as their related initialization and finalization calls.
+
+1ff494813bafa127ecba1160262ba39b2fdde7ba (Tue Jan 29 11:42:48 2019 +0100):
+Remove DRIVER_IRQ_SHARED
+
+0424fdaf883a689d5185c0d0665b265373945898 (Mon Jun 17 17:39:24 2019 +0200):
+Remove DRIVER_PRIME
+
+b96f3e7c8069b749a40ca3a33c97835d57dd45d2 (Mon Aug 5 16:01:10 2019 +0200):
+ttm_buffer_object::vma_node => ttm_buffer_object::base.vma_node
+
+52791eeec1d9f4a7e7fe08aaba0b1553149d93bc (Sun Aug 11 10:06:32 2019 +0200):
+reservation_object => dma_resv
+
+4e98f871bcffa322850c73d22c66bbd7af2a0374 (Mon Oct 7 19:12:24 2019 +0200):
+drmP.h  ==>  individual drm header
+
+d7757ba3f22a11be3330b1c9fcec5d55afe4c6af (Thu Jan 23 14:59:32 2020 +0100):
+Convert to CRTC VBLANK callbacks.
+See https://patchwork.freedesktop.org/series/71873/
+
+9de59bc201496f28bb8835c2bcbae3ddb186b548 (Tue Aug 4 12:56:31 2020 +1000):
+ttm_mem_type_manager => ttm_resource_manager
+
+2966141ad2dda23d1b37997de6a4389b7864c169 (Tue Aug 4 12:56:32 2020 +1000):
+ttm_mem_reg => ttm_resource
+
+e2d732fdb7a9e421720a644580cd6a9400f97f60 (Tue Aug 11 19:59:58 2020 -0400):
+DRM_SCHED_PRIORITY_MAX => DRM_SCHED_PRIORITY_COUNT
+
+8af8a109b34fa88b8b91f25d11485b37d37549c3 (Thu Oct 1 14:51:40 2020 +0200):
+ttm_bo_device => ttm_device
+ttm_bo_driver => ttm_device_funcs
+ttm_bo_global => ttm_global
+ttm_device::man[] => ttm_device::man_drv[]
+
+d86a41267b32e9bcfcf65c82f299b697903706bf (Tue Dec 1 11:35:38 2020 +0100):
+Remove drm_device::pdev
+
+e11bfb99d6ece23b772b57c29fa80448639fd6e5 (Wed Dec 9 15:07:50 2020 +0100):
+ttm_buffer_object::num_pages => ttm_buffer_object::ttm->num_pages
+
+c777dc9e793342ecdfc95045d2127a3ea32791a0 (Fri Feb 5 16:17:07 2021 +0100):
+ttm_buffer_object::mem.page_alignment => ttm_buffer_object::page_alignment
+
+d3116756a710e3cd51293a9d58b525957ab7e784 (Mon Apr 12 15:11:47 2021 +0200):
+ttm_buffer_object::mem. => ttm_buffer_object::resource->
+
+6a2d2ddf2c345e0149bfbffdddc4768a9ab0a741 (Fri Nov 12 14:32:27 2021 +0100):
+vgacon_text_force => drm_firmware_drivers_only
+
+a3185f91d0579b61a0a0dce3df1c67d6e324ebc8 (Mon May 9 21:13:35 2022 +0200):
+ttm_bo_api.h + ttm_bo_driver.h  -=>  ttm_bo.h
+
+9a758d8756daab5b8fda006e131c066336b16a32 (Fri Nov 11 14:30:23 2022 +0100):
+drm_firmware_drivers_only => video_firmware_drivers_only
+
+5b6373de4351debd9fa87f1c46442b2c28d8b18e (Mon Dec 19 17:05:16 2022 +0100):
+Use drm_fb_helper_remove_conflicting_pci_framebuffers rather than driver
+defined gsgpu_kick_out_firmware_fb
+
+71e801b9b44f86ce8c816b06960c705f901c50e5 (Tue Jun 20 09:59:58 2023 +0200):
+Clear fd/handle callbacks in struct drm_driver
+
+d3ef581afa5e6a65cc3a40de2e62901f17b8cebc (Fri Sep 25 15:21:49 2020 +0200):
+Implement the fault handler ourselves using the provided TTM functions.
+
+
+GPU Scheduler Changes:
+
+commit 222b5f044159877504dbac9bc1910f89a74136e2
+Author: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Date:   Tue Dec 4 16:56:14 2018 -0500
+
+    drm/sched: Refactor ring mirror list handling.
+
+commit 5918045c4ed492fb5813f980dcf89a90fefd0a4e
+Author: Christian König <christian.koenig@amd.com>
+Date:   Thu Apr 18 11:00:21 2019 -0400
+
+    drm/scheduler: rework job destruction
+
+
+Patch series:
+https://patchwork.freedesktop.org/series/62135/
+https://patchwork.freedesktop.org/series/71873/
+https://patchwork.freedesktop.org/series/79703/
+https://patchwork.freedesktop.org/series/80078/
+https://patchwork.freedesktop.org/series/80231/
+https://patchwork.freedesktop.org/series/80593/
+https://patchwork.freedesktop.org/series/81598/
+https://patchwork.freedesktop.org/series/81973/
+https://patchwork.freedesktop.org/series/88752/
+https://patchwork.freedesktop.org/series/93078/
+https://patchwork.kernel.org/project/linux-media/patch/20220407085946.744568-2-christian.koenig@amd.com/
+https://patchwork.freedesktop.org/series/101591/
+https://patchwork.freedesktop.org/series/102242/
+https://patchwork.freedesktop.org/series/119283/
+
+TODO:
+commit 58144d283712c9e80e528e001af6ac5aeee71af2
+Author: Nirmoy Das <nirmoy.das@amd.com>
+Date:   Wed Oct 6 17:55:00 2021 +0200
+
+    drm/amdgpu: unify BO evicting method in amdgpu_ttm
+
+    Unify BO evicting functionality for possible memory
+    types in amdgpu_ttm.c.
+
+commit 1b08dfb889b2c584b444538c9500af24ba0a6dc7
+Author: Christian König <christian.koenig@amd.com>
+Date:   Tue Jan 18 12:53:11 2022 +0100
+
+    drm/amdgpu: remove gart.ready flag
+
+commit 03373e2be290e6169293bdfc34e313aae9fdef8b
+Author: Kevin Wang <kevin1.wang@amd.com>
+Date:   Fri Jul 16 14:03:08 2021 -0400
+
+    drm/amdgpu/ttm: optimize vram access in amdgpu_ttm_access_memory()
+
+commit 8a206685d36f6f0c6b72637f920ef973ea9cc936
+Author: Christian König <christian.koenig@amd.com>
+Date:   Tue Apr 19 14:33:39 2022 +0200
+
+    drm/amdgpu: use drm_exec for GEM and CSA handling v2
+
+
+Related AMDGPU commits:
+commit f0ee63cbc5264dbbdb994e87504b0b033149da55
+Author: Christian König <christian.koenig@amd.com>
+Date:   Wed Mar 18 10:28:20 2020 +0100
+
+    drm/amdgpu: cleanup amdgpu_ttm_copy_mem_to_mem and amdgpu_map_buffer v2
+
+commit be956c575e8b205c4c31e119bb9624a9226b6210
+Author: Christian König <christian.koenig@amd.com>
+Date:   Wed Feb 17 12:37:53 2021 +0100
+
+    drm/amdgpu: use the new cursor in amdgpu_ttm_copy_mem_to_mem
+
+commit 10ebcd953dfa34cc3a5744cd359db85bc94a0162
+Author: Christian König <christian.koenig@amd.com>
+Date:   Wed Feb 17 13:50:49 2021 +0100
+
+    drm/amdgpu: use new cursor in amdgpu_ttm_io_mem_pfn
+
+commit 498ad8ec2ff025faa94a872068c6167a9b4c3d2b
+Author: Christian König <christian.koenig@amd.com>
+Date:   Wed Feb 17 14:33:54 2021 +0100
+
+    drm/amdgpu: use the new cursor in amdgpu_ttm_access_memory
+
+commit 755eadf662881ef41bcf221d179336781c7a73dd
+Author: Christian König <christian.koenig@amd.com>
+Date:   Wed Feb 17 14:48:07 2021 +0100
+
+    drm/amdgpu: use new cursor in amdgpu_mem_visible
+
+commit d79025c7f5e376413780f547e3a31b16575b83d7
+Author: Christian König <christian.koenig@amd.com>
+Date:   Tue Feb 16 19:03:52 2021 +0100
+
+    drm/ttm: always initialize the full ttm_resource v2
+
+commit dfffdf5e65975a03aa26836df3bc320d45202450
+Author: Christian König <christian.koenig@amd.com>
+Date:   Tue Apr 27 11:36:10 2021 +0200
+
+    drm/amdgpu: check contiguous flags instead of mm_node
+
+commit 54d04ea8cdbd143496e4f5cc9c0a9f86c0e55a2e
+Author: Christian König <christian.koenig@amd.com>
+Date:   Mon Sep 7 13:44:36 2020 +0200
+
+    drm/ttm: merge offset and base in ttm_bus_placement
+
+commit f5a89a5cae812a39993be32e74c8ed7856b1e2b2
+Author: Dave Airlie <airlied@redhat.com>
+Date:   Thu Oct 29 13:59:08 2020 +1000
+
+    drm/amdgpu/ttm: use multihop
+
+commit 902d77f3568a9f35493e1ebcfe25ba32cd3489e0
+Author: Christian König <christian.koenig@amd.com>
+Date:   Thu Jul 16 10:28:04 2020 +0200
+
+    drm/amdgpu: stop using TTM_MEMTYPE_FLAG_MAPPABLE
+
+commit f5a9a9383f279de9da63296cb623a6418a66196b
+Author: Christian König <christian.koenig@amd.com>
+Date:   Wed Jul 15 14:52:05 2020 +0200
+
+    drm/ttm: remove TTM_MEMTYPE_FLAG_CMA
+
+commit 418d2ad1ac521acc46f74f6bcbc8c1158d077346
+Author: Christian König <christian.koenig@amd.com>
+Date:   Mon Jul 20 14:41:31 2020 +0200
+
+    drm/ttm: initialize the system domain with defaults v2
+
+commit 1a3fb590856a9d7e8392d970fc07791b6703de94
+Author: Christian König <christian.koenig@amd.com>
+Date:   Thu Jul 23 17:13:47 2020 +0200
+
+    drm/ttm: remove the init_mem_type callback
+
+commit bfe5e585b44fb810e33fe54d4d822c6b2b40488c
+Author: Dave Airlie <airlied@redhat.com>
+Date:   Tue Oct 20 11:03:19 2020 +1000
+
+    drm/ttm: move last binding into the drivers.
+
+commit 9e9a153bdf2555a931fd37678a8e44d170a5d943
+Author: Dave Airlie <airlied@redhat.com>
+Date:   Tue Sep 15 11:34:51 2020 +1000
+
+    drm/ttm: move ttm binding/unbinding out of ttm_tt paths.
+
+commit 5d26eba988296a786442824297c7fc66a4f03ff9
+Author: Dave Airlie <airlied@redhat.com>
+Date:   Tue Sep 8 06:46:25 2020 +1000
+
+    drm/amdgpu/ttm: move to driver backend binding funcs
+
+commit b1a8ef952a25a926869deca08b74874ecfadf7ad
+Author: Nirmoy Das <nirmoy.aiemd@gmail.com>
+Date:   Wed Jun 24 20:26:41 2020 +0200
+
+    drm/amdgpu: move ttm bo->offset to amdgpu_bo
+
+commit ebb21aa1882f418b436ee23463683790c553a447
+Author: Dave Airlie <airlied@redhat.com>
+Date:   Tue Aug 11 17:46:58 2020 +1000
+
+    drm/ttm: drop bus.size from bus placement.
+
+commit 098754fe3ce79af2d5772c0356ba5d52e67eb64a
+Author: Dave Airlie <airlied@redhat.com>
+Date:   Tue Aug 11 17:46:57 2020 +1000
+
+    drm/ttm: init mem->bus in common code.
+
+commit d8ed45c5dcd455fc5848d47f86883a1b872ac0d0
+Author: Michel Lespinasse <michel@lespinasse.org>
+Date:   Mon Jun 8 21:33:25 2020 -0700
+
+    mmap locking API: use coccinelle to convert mmap_sem rwsem call sites
+
+commit 899fbde1464639e3d12eaffdad8481a59b367fcb
+Author: Philip Yang <Philip.Yang@amd.com>
+Date:   Thu Dec 13 15:35:28 2018 -0500
+
+    drm/amdgpu: replace get_user_pages with HMM mirror helpers
+
+commit 6826cb3b92a3ae1f696334f2069391642f8caf9f
+Author: Philip Yang <Philip.Yang@amd.com>
+Date:   Mon Mar 4 14:41:03 2019 -0500
+
+    drm/amdgpu: support userptr cross VMAs case with HMM
+
+commit 81fa1af31b5d79047821def6abdcb97a735d8a52
+Author: Jason Gunthorpe <jgg@ziepe.ca>
+Date:   Tue Nov 12 16:22:29 2019 -0400
+
+    drm/amdgpu: Use mmu_interval_notifier instead of hmm_mirror
+
+commit 4e2490843d55ffcb128ade3665c238042e36a435
+Author: Jason Gunthorpe <jgg@ziepe.ca>
+Date:   Fri May 1 15:20:46 2020 -0300
+
+    drm/amdgpu: remove dead code after hmm_range_fault()
+
+commit 2733ea144dcce789de20988c1056e228a07b1bff
+Author: Jason Gunthorpe <jgg@ziepe.ca>
+Date:   Fri May 1 15:20:48 2020 -0300
+
+    mm/hmm: remove the customizable pfn format from hmm_range_fault
+
+commit 04d8d73dbcbe645a378fca6adc6f0e7111e46c17
+Author: Philip Yang <Philip.Yang@amd.com>
+Date:   Mon Feb 24 21:17:30 2020 -0500
+
+    drm/amdgpu: add common HMM get pages function
+
+commit c44dfe4de053914cae61ed0a36421b3017f428bd
+Author: Christian König <christian.koenig@amd.com>
+Date:   Mon Nov 2 13:16:13 2020 +0100
+
+    drm/ttm: replace context flags with bools v2
+
+commit b2c18f0a9c8bd0fa5c1239830b787d5f8288f7b5
+Author: Christian König <christian.koenig@amd.com>
+Date:   Thu Sep 19 10:38:57 2019 +0200
+
+    drm/amdgpu: fix potential VM faults
+
+commit f07069da6b4c5f937d6df2de6504394845513964
+Author: Christian König <christian.koenig@amd.com>
+Date:   Tue Nov 17 13:52:28 2020 +0100
+
+    drm/ttm: move memory accounting into vmwgfx v4
+
+commit 347987a2cf0d146484d1c586951ef10028bb1674
+Author: Christian König <christian.koenig@amd.com>
+Date:   Fri Feb 18 14:32:53 2022 +0100
+
+    drm/ttm: rename and cleanup ttm_bo_init
+
+commit 8bb31587820a6e04cb613b49238b1800d1a97223
+Author: Christian König <christian.koenig@amd.com>
+Date:   Tue Nov 23 11:30:35 2021 +0100
+
+    drm/ttm: remove bo->moving
+
+commit 4ce032d64c2a30cf5b23c57b3328d5d2dab99a1f
+Author: Christian König <christian.koenig@amd.com>
+Date:   Thu Oct 1 15:21:00 2020 +0200
+
+    drm/ttm: nuke ttm_bo_evict_mm and rename mgr function v3
+
+commit c35fcfa344c7544c899610dd5e512f7d630a152c
+Author: Christian König <christian.koenig@amd.com>
+Date:   Mon Apr 4 12:57:30 2022 +0200
+
+    drm/amdgpu: use DMA_RESV_USAGE_KERNEL
+
+commit e07ddb0ce7cde64fdfcd96e96d1dce8538fa0bb0
+Author: Emil Velikov <emil.velikov@collabora.com>
+Date:   Fri May 15 10:50:54 2020 +0100
+
+    drm/amd: remove _unlocked suffix in drm_gem_object_put_unlocked
+
+commit a9f34c70fd168b164aadffd46bb757ded52e25b9
+Author: Christian König <christian.koenig@amd.com>
+Date:   Wed Sep 19 16:25:08 2018 +0200
+
+    drm/ttm: allow reserving more than one shared slot v3
+
+commit 7fd50bc39d126d172b4db1f024d7b12484aed0fb
+Author: Thomas Zimmermann <tzimmermann@suse.de>
+Date:   Thu Nov 3 16:14:36 2022 +0100
+
+    drm/fb-helper: Rename drm_fb_helper_alloc_fbi() to use _info postfix
+
+commit d4e8ad908b2095388a300b19d76b78c170052a8a
+Author: Christian König <christian.koenig@amd.com>
+Date:   Thu Sep 8 08:43:15 2022 +0200
+
+    drm/amdgpu: reorder CS code
+
+commit 0e10e9a1db230ae98c8ccfeaf0734545421c3995
+Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date:   Thu Aug 5 12:46:50 2021 +0200
+
+    drm/sched: drop entity parameter from drm_sched_push_job
+
+commit 9af5e21dace795891544042abda877ada39abacc
+Author: Luben Tuikov <luben.tuikov@amd.com>
+Date:   Tue Aug 11 20:56:58 2020 -0400
+
+    drm/scheduler: Remove priority macro INVALID (v2)
+
+commit e2d732fdb7a9e421720a644580cd6a9400f97f60
+Author: Luben Tuikov <luben.tuikov@amd.com>
+Date:   Tue Aug 11 19:59:58 2020 -0400
+
+    drm/scheduler: Scheduler priority fixes (v2)
+
+commit 4d85f45c73a22bc0ee900c7505b7210a87a7966d
+Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date:   Tue Sep 3 21:06:42 2019 +0200
+
+    drm/atomic: Rename crtc_state->pageflip_flags to async_flip
+
+commit 7c99616e3fe7f35fe25bf6f5797267da29b4751e
+Author: Zack Rusin <zackr@vmware.com>
+Date:   Tue Oct 18 22:43:50 2022 -0400
+
+    drm: Remove drm_mode_config::fb_base
+
+commit a6a1f036c74e3d2a3a56b3140492c7c3ecb879f3
+Author: Luben Tuikov <luben.tuikov@amd.com>
+Date:   Wed Jan 20 15:09:59 2021 -0500
+
+    drm/scheduler: Job timeout handler returns status (v3)
+
+commit c726c62db857d375800af7e82eb1c6f639e87631
+Author: Qing Wang <wangqing@vivo.com>
+Date:   Thu Oct 7 20:28:32 2021 -0700
+
+    dmaengine: switch from 'pci_' to 'dma_' API
+
+commit ea702333e56766a7def0023bf78f43d3a81f56c5
+Author: Thomas Zimmermann <tzimmermann@suse.de>
+Date:   Thu Jan 23 14:59:25 2020 +0100
+
+    drm/amdgpu: Convert to struct drm_crtc_helper_funcs.get_scanout_position()
