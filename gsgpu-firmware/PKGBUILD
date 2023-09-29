@@ -1,0 +1,16 @@
+# Maintainer: Dr. Chang Liu, PhD <cl91tp@gmail.com>
+
+pkgname=gsgpu-firmware
+pkgver=0.0.1
+pkgrel=1
+pkgdesc='Firmware for the Loongson 7A2000 graphics chip'
+arch=('any')
+license=('MIT')
+source=('lg100_cp.bin')
+noextract=('lg100_cp.bin')
+sha256sums=('5f0cea0c155ed87e655e4b69d92a11ad31582799bf21909f23f809c9b3109a44')
+
+package() {
+    install -vDm644 -t "$pkgdir/usr/lib/firmware/loongson" lg100_cp.bin
+    zstd --rm "$pkgdir/usr/lib/firmware/loongson/lg100_cp.bin"
+}
