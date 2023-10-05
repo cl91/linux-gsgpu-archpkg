@@ -95,9 +95,11 @@ https://patchwork.freedesktop.org/series/81598/
 https://patchwork.freedesktop.org/series/81973/
 https://patchwork.freedesktop.org/series/88752/
 https://patchwork.freedesktop.org/series/93078/
+https://patchwork.freedesktop.org/series/93415/
 https://patchwork.kernel.org/project/linux-media/patch/20220407085946.744568-2-christian.koenig@amd.com/
 https://patchwork.freedesktop.org/series/101591/
 https://patchwork.freedesktop.org/series/102242/
+https://patchwork.freedesktop.org/series/109711/ (we need to integrate changes in this patch series)
 https://patchwork.freedesktop.org/series/119283/
 
 TODO:
@@ -127,6 +129,12 @@ Author: Christian König <christian.koenig@amd.com>
 Date:   Tue Apr 19 14:33:39 2022 +0200
 
     drm/amdgpu: use drm_exec for GEM and CSA handling v2
+
+commit c103a23f2f297c6ab2e5e74e39b655439f3524a6
+Author: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Date:   Fri Feb 24 10:51:51 2023 +0100
+
+    drm/amd: Convert amdgpu to use suballocation helper.
 
 
 Related AMDGPU commits:
@@ -399,3 +407,15 @@ Author: Thomas Zimmermann <tzimmermann@suse.de>
 Date:   Thu Jan 23 14:59:25 2020 +0100
 
     drm/amdgpu: Convert to struct drm_crtc_helper_funcs.get_scanout_position()
+
+commit a82f30b04c6aaefe62cbbfd297e1bb23435b6b3a
+Author: Christian König <christian.koenig@amd.com>
+Date:   Thu Sep 29 15:01:57 2022 +0200
+
+    drm/scheduler: rename dependency callback into prepare_job
+
+commit dbe48d030b285a1305a874bee523681709fba162
+Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date:   Tue Aug 17 10:49:16 2021 +0200
+
+    drm/sched: Split drm_sched_job_init
