@@ -1,7 +1,7 @@
 # Maintainer: Dr. Chang Liu, PhD <cl91tp@gmail.com>
 
 pkgbase=linux-gsgpu
-pkgver=6.6.rc2.r328.59c8d9f13b72
+pkgver=6.6.rc2
 pkgrel=1
 pkgdesc="Mainline Linux kernel with GSGPU module"
 url="https://www.kernel.org"
@@ -34,31 +34,21 @@ export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
-_make() {
-    test -s version
-    make KERNELRELEASE="$(<version)" "$@"
-}
-
 prepare() {
     cd $_srcname
 
-    echo "Setting version..."
-    echo "-$pkgrel" > localversion.10-pkgrel
-    echo "${pkgbase#linux}" > localversion.20-pkgname
-    make defconfig
-    make -s kernelrelease > version
-    make mrproper
+    git clean -xdf
 
     echo "Setting config..."
     cp ../config .config
-    _make olddefconfig
+    make olddefconfig
 
-    echo "Prepared $pkgbase version $(<version)"
+    make -s kernelrelease > version
 }
 
 build() {
     cd $_srcname
-    _make all
+    make all
 }
 
 _package() {
@@ -89,13 +79,13 @@ _package() {
     echo "Installing boot image..."
     # systemd expects to find the kernel here to allow hibernation
     # https://github.com/systemd/systemd/commit/edda44605f06a41fb86b7ab8128dcf99161d2344
-    install -Dm644 "$(_make -s image_name)" "$modulesdir/vmlinuz"
+    install -Dm644 "$(make -s image_name)" "$modulesdir/vmlinuz"
 
     # Used by mkinitcpio to name the kernel
     echo "$pkgbase" | install -Dm644 /dev/stdin "$modulesdir/pkgbase"
 
     echo "Installing modules..."
-    ZSTD_CLEVEL=19 _make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
+    ZSTD_CLEVEL=19 make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
 		   DEPMOD=/doesnt/exist modules_install  # Suppress depmod
 
     # remove build and source links
@@ -111,7 +101,7 @@ _package-headers() {
 
     echo "Installing build files..."
     install -Dt "$builddir" -m644 .config Makefile Module.symvers System.map \
-	    localversion.* version vmlinux
+	    version vmlinux
     install -Dt "$builddir/kernel" -m644 kernel/Makefile
     install -Dt "$builddir/arch/loongarch" -m644 arch/loongarch/Makefile
     cp -t "$builddir" -a scripts
