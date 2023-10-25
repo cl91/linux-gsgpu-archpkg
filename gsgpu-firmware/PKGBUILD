@@ -12,5 +12,4 @@ sha256sums=('5f0cea0c155ed87e655e4b69d92a11ad31582799bf21909f23f809c9b3109a44')
 
 package() {
     install -vDm644 -t "$pkgdir/usr/lib/firmware/loongson" lg100_cp.bin
-    zstd --rm "$pkgdir/usr/lib/firmware/loongson/lg100_cp.bin"
 }
