@@ -27,7 +27,7 @@ source=(
 )
 sha256sums=(
     'SKIP'
-    'eee1c20533180fbc7baf273c5f50cbe292ffc6b6574f515364f41c69487d00e6'  # config
+    'd8a5fb140134ce37ea46edac2e93ddd7eb9240fc4a7557d7bd3b021153cf44da'  # config
 )
 
 export KBUILD_BUILD_HOST=archlinux
