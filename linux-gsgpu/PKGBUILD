@@ -24,10 +24,12 @@ _srcname=linux-gsgpu
 source=(
     "$_srcname::git+https://github.com/cl91/linux#branch=gsgpu"
     config         # the main kernel config file
+    gsgpu.conf     # mkinitcpio config file
 )
 sha256sums=(
     'SKIP'
     'd8a5fb140134ce37ea46edac2e93ddd7eb9240fc4a7557d7bd3b021153cf44da'  # config
+    '9034e5f1994e558555499ac0dc790203449dcc7d2db3dc17b27b7c6f597843fc'  # gsgpu.conf
 )
 
 export KBUILD_BUILD_HOST=archlinux
@@ -87,6 +89,9 @@ _package() {
     echo "Installing modules..."
     ZSTD_CLEVEL=19 make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
 		   DEPMOD=/doesnt/exist modules_install  # Suppress depmod
+
+    echo "Installing mkinitcpio config..."
+    install -Dm644 "../gsgpu.conf" "$pkgdir/etc/mkinitcpio.conf.d/gsgpu.conf"
 
     # remove build and source links
     rm -f "$modulesdir"/{source,build}
