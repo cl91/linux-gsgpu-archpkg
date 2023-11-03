@@ -1,7 +1,7 @@
 # Maintainer: Dr. Chang Liu, PhD <cl91tp@gmail.com>
 
 pkgbase=linux-gsgpu
-pkgver=6.6.rc2
+pkgver=6.6
 pkgrel=1
 pkgdesc="Mainline Linux kernel with GSGPU module"
 url="https://www.kernel.org"
@@ -28,7 +28,7 @@ source=(
 )
 sha256sums=(
     'SKIP'
-    'd8a5fb140134ce37ea46edac2e93ddd7eb9240fc4a7557d7bd3b021153cf44da'  # config
+    '3dba58d3f186d8d4465917eb8496c1084642e1bb18733e199c40edec0d724de3'  # config
     '9034e5f1994e558555499ac0dc790203449dcc7d2db3dc17b27b7c6f597843fc'  # gsgpu.conf
 )
 
