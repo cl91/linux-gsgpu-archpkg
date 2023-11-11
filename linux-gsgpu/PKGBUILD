@@ -28,7 +28,7 @@ source=(
 )
 sha256sums=(
     'SKIP'
-    'e35d054d13c7c988695d83a5fdbdc665d740c2dade01c910c87f4ee8944a36a8'  # config
+    'ae3311d9189a3558c0d8f6648198fbae75362e2afac945f6791a8a1abe564315'  # config
     '9034e5f1994e558555499ac0dc790203449dcc7d2db3dc17b27b7c6f597843fc'  # gsgpu.conf
 )
 
